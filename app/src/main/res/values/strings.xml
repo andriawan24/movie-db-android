@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Movie DB</string>
+    <string name="label_search">Search</string>
+    <string name="hint_search_movie">Search movie…</string>
+    <string name="content_description_sad_face">Image of sad face emoji</string>
+    <string name="title_movie_not_found">Oh no, you\'ve got nothing!</string>
+    <string name="description_movie_not_found">Don\'t worry, you can always try another keywords</string>
 </resources>
