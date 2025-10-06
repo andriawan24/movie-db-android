@@ -4,7 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andriawan24.moviedb.databinding.ItemMovieBinding
+import com.andriawan24.moviedb.utils.extensions.px
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 
 class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
@@ -31,6 +34,9 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
         fun bind() {
             Glide.with(binding.root.context)
                 .load("https://media.themoviedb.org/t/p/w440_and_h660_face/xdzLBZjCVSEsic7m7nJc4jNJZVW.jpg")
+                .apply(
+                    RequestOptions.bitmapTransform(RoundedCorners(8.px))
+                )
                 .into(binding.ivPoster)
         }
     }
