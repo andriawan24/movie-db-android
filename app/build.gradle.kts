@@ -52,6 +52,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -63,9 +64,18 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
+    // Retrofit
+    implementation(libs.retrofit)
+
     // Dagger hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+
+    // Logging
+    implementation(libs.timber)
+
+    // Glide image loading
+    implementation(libs.glide)
 
     // Testing
     testImplementation(libs.junit)
