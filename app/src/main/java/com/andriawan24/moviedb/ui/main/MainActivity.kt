@@ -1,6 +1,5 @@
 package com.andriawan24.moviedb.ui.main
 
-import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.GridLayoutManager
 import com.andriawan24.moviedb.adapter.MovieListAdapter
