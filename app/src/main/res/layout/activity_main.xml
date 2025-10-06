@@ -26,7 +26,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/rethink_sans"
-            android:hint="@string/hint_search_movie" />
+            android:hint="@string/hint_search_movie"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
