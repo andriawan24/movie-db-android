@@ -1,17 +1,16 @@
-package com.andriawan24.moviedb
+package com.andriawan24.moviedb.base
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.andriawan24.moviedb.databinding.ActivityMainBinding
+import androidx.viewbinding.ViewBinding
+import com.andriawan24.moviedb.R
 
-class MainActivity : AppCompatActivity() {
+abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
-    private val binding: ActivityMainBinding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
+    abstract val binding: VB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,5 +21,13 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        initIntent()
+        initUI()
+        initListener()
     }
+
+    open fun initIntent() = Unit
+    abstract fun initUI()
+    open fun initListener() = Unit
 }
