@@ -1,4 +1,4 @@
-package com.andriawan24.moviedb
+package com.andriawan.moviedb
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

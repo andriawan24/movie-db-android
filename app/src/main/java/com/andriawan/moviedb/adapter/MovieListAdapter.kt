@@ -1,10 +1,12 @@
-package com.andriawan24.moviedb.adapter
+package com.andriawan.moviedb.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.andriawan24.moviedb.databinding.ItemMovieBinding
-import com.andriawan24.moviedb.utils.extensions.px
+import com.andriawan.moviedb.databinding.ItemMovieBinding
+import com.andriawan.moviedb.ui.detail.DetailActivity
+import com.andriawan.moviedb.utils.extensions.px
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -38,6 +40,11 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
                     RequestOptions.bitmapTransform(RoundedCorners(8.px))
                 )
                 .into(binding.ivPoster)
+
+            binding.root.setOnClickListener {
+                val intent = Intent(binding.root.context, DetailActivity::class.java)
+                binding.root.context.startActivity(intent)
+            }
         }
     }
 }

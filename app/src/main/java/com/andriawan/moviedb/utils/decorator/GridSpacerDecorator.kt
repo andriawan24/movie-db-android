@@ -1,10 +1,10 @@
-package com.andriawan24.moviedb.utils.decorator
+package com.andriawan.moviedb.utils.decorator
 
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.andriawan24.moviedb.utils.extensions.px
+import com.andriawan.moviedb.utils.extensions.px
 
 /**
  * A decorator for recyclerview that provides grid spacing for items in a grid layout manager

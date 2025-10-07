@@ -1,4 +1,4 @@
-package com.andriawan24.moviedb.utils.extensions
+package com.andriawan.moviedb.utils.extensions
 
 import android.app.Activity
 import android.content.Context

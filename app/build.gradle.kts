@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.andriawan24.moviedb"
+    namespace = "com.andriawan.moviedb"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.andriawan24.moviedb"
+        applicationId = "com.andriawan.moviedb"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

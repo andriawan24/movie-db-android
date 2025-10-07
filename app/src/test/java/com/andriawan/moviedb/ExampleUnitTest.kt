@@ -1,4 +1,4 @@
-package com.andriawan24.moviedb
+package com.andriawan.moviedb
 
 import org.junit.Test
 

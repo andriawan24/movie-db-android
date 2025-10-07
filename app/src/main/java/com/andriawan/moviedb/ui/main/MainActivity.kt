@@ -1,12 +1,12 @@
-package com.andriawan24.moviedb.ui.main
+package com.andriawan.moviedb.ui.main
 
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.GridLayoutManager
-import com.andriawan24.moviedb.adapter.MovieListAdapter
-import com.andriawan24.moviedb.base.BaseActivity
-import com.andriawan24.moviedb.databinding.ActivityMainBinding
-import com.andriawan24.moviedb.utils.decorator.GridSpacerDecorator
-import com.andriawan24.moviedb.utils.extensions.hideKeyboard
+import com.andriawan.moviedb.adapter.MovieListAdapter
+import com.andriawan.moviedb.base.BaseActivity
+import com.andriawan.moviedb.databinding.ActivityMainBinding
+import com.andriawan.moviedb.utils.decorator.GridSpacerDecorator
+import com.andriawan.moviedb.utils.extensions.hideKeyboard
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -17,6 +17,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun initUI() {
+        setupSystemPadding(isVerticalEnabled = true)
+
         binding.apply {
             etSearch.setOnEditorActionListener { v, eventId, _ ->
                 if (eventId == EditorInfo.IME_ACTION_SEARCH) {
