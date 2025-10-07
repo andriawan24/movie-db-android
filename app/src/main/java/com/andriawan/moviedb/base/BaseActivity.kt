@@ -26,14 +26,14 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     abstract fun initUI()
     open fun initListener() = Unit
 
-    protected fun setupSystemPadding(isVerticalEnabled: Boolean = false) {
+    protected fun setupSystemPadding(isTopEnabled: Boolean = false, isBottomEnabled: Boolean) {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(
                 systemBars.left,
-                if (isVerticalEnabled) systemBars.top else 0,
+                if (isTopEnabled) systemBars.top else 0,
                 systemBars.right,
-                if (isVerticalEnabled) systemBars.bottom else 0
+                if (isBottomEnabled) systemBars.bottom else 0
             )
 
             insets

@@ -33,7 +33,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun initUI() {
-        setupSystemPadding(isVerticalEnabled = true)
+        setupSystemPadding(isTopEnabled = true, isBottomEnabled = true)
         setupRecyclerView()
         observeViewModel()
     }

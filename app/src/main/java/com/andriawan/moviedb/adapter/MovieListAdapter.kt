@@ -10,6 +10,7 @@ import com.andriawan.moviedb.R
 import com.andriawan.moviedb.databinding.ItemMovieBinding
 import com.andriawan.moviedb.domain.models.Movie
 import com.andriawan.moviedb.ui.detail.DetailActivity
+import com.andriawan.moviedb.utils.Constants.IMAGE_BASE_URL
 import com.andriawan.moviedb.utils.extensions.px
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -46,8 +47,7 @@ class MovieListAdapter : PagingDataAdapter<Movie, MovieListAdapter.ViewHolder>(C
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: Movie) {
-            val imageBaseUrl = "https://image.tmdb.org/t/p/w500"
-            val posterUrl = imageBaseUrl + movie.posterPath
+            val posterUrl = IMAGE_BASE_URL + movie.posterPath
 
             binding.apply {
                 tvTitle.text = movie.title
@@ -66,7 +66,7 @@ class MovieListAdapter : PagingDataAdapter<Movie, MovieListAdapter.ViewHolder>(C
 
                 root.setOnClickListener {
                     val intent = Intent(root.context, DetailActivity::class.java)
-                    intent.putExtra("movie_id", movie.id)
+                    intent.putExtra(DetailActivity.EXTRA_MOVIE_ID, movie.id)
                     root.context.startActivity(intent)
                 }
             }

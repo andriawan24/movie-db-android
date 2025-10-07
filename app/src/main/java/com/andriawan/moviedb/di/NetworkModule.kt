@@ -2,6 +2,7 @@ package com.andriawan.moviedb.di
 
 import com.andriawan.moviedb.data.network.MovieAPI
 import com.andriawan.moviedb.data.network.interceptor.HeaderApiKeyInterceptor
+import com.andriawan.moviedb.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,7 +33,7 @@ object NetworkModule {
         val contentTypeJson = "application/json".toMediaType()
 
         return Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(Json.asConverterFactory(contentTypeJson))
             .client(client)
             .build()
