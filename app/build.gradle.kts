@@ -1,10 +1,21 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
+}
+
+val localProperties = File(rootProject.projectDir, "local.properties")
+var movieApiKey = ""
+if (localProperties.exists()) {
+    val properties = Properties()
+    localProperties.inputStream().use { properties.load(it) }
+
+    movieApiKey = properties.getProperty("MOVIE_API_KEY") ?: ""
 }
 
 android {
@@ -26,12 +37,17 @@ android {
             isMinifyEnabled = false
             isDebuggable = true
             isShrinkResources = false
+
+            buildConfigField("String", "MOVIE_API_KEY", "\"$movieApiKey\"")
         }
 
         release {
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = false
+
+            buildConfigField("String", "MOVIE_API_KEY", "\"$movieApiKey\"")
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -66,6 +82,8 @@ dependencies {
 
     // Retrofit
     implementation(libs.retrofit)
+    implementation(libs.retrofit.kotlin.serialization)
+    implementation(libs.logging.interceptor)
 
     // Dagger hilt
     implementation(libs.hilt.android)
@@ -76,6 +94,15 @@ dependencies {
 
     // Glide image loading
     implementation(libs.glide)
+
+    // Kotlinx Serialization
+    implementation(libs.kotlinx.serialization.json)
+
+    // Viewmodel coroutines
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    // Paging
+    implementation(libs.androidx.paging.runtime.ktx)
 
     // Testing
     testImplementation(libs.junit)
