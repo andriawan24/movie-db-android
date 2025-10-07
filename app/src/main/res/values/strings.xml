@@ -9,4 +9,8 @@
     <string name="action_search_trailer">Search Trailer</string>
     <string name="title_actors">Actors</string>
     <string name="title_categories">Categories</string>
+    <string name="error_title">Failed</string>
+    <string name="error_no_internet">No Internet Connection</string>
+    <string name="error_unknown">Unknown error: $1%s</string>
+    <string name="action_try_again">Try Again</string>
 </resources>

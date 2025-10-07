@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/_24dp">
+
+    <TextView
+        android:id="@+id/tvErrTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rethink_sans_semibold"
+        android:text="@string/error_title"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvErrMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4dp"
+        android:fontFamily="@font/rethink_sans"
+        tools:text="Error" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

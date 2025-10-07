@@ -3,47 +3,90 @@ package com.andriawan.moviedb.adapter
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.andriawan.moviedb.R
 import com.andriawan.moviedb.databinding.ItemMovieBinding
+import com.andriawan.moviedb.domain.models.Movie
 import com.andriawan.moviedb.ui.detail.DetailActivity
 import com.andriawan.moviedb.utils.extensions.px
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 
-class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemMovieBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-
+class MovieListAdapter : PagingDataAdapter<Movie, MovieListAdapter.ViewHolder>(COMPARATOR) {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
+        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind()
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int
+    ) {
+        getItem(position)?.let { movie ->
+            holder.bind(movie)
+        }
     }
 
-    override fun getItemCount(): Int = 10
+    override fun getItemViewType(position: Int): Int {
+        return if (position == itemCount) {
+            VIEW_TYPE_LOADING
+        } else {
+            VIEW_TYPE_MOVIE
+        }
+    }
 
     inner class ViewHolder(
         private val binding: ItemMovieBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind() {
-            Glide.with(binding.root.context)
-                .load("https://media.themoviedb.org/t/p/w440_and_h660_face/xdzLBZjCVSEsic7m7nJc4jNJZVW.jpg")
-                .apply(
-                    RequestOptions.bitmapTransform(RoundedCorners(8.px))
-                )
-                .into(binding.ivPoster)
+        fun bind(movie: Movie) {
+            val imageBaseUrl = "https://image.tmdb.org/t/p/w500"
+            val posterUrl = imageBaseUrl + movie.posterPath
 
-            binding.root.setOnClickListener {
-                val intent = Intent(binding.root.context, DetailActivity::class.java)
-                binding.root.context.startActivity(intent)
+            binding.apply {
+                tvTitle.text = movie.title
+                tvYear.text = movie.releaseDate
+
+                Glide.with(root.context)
+                    .load(posterUrl)
+                    .apply(
+                        RequestOptions.bitmapTransform(
+                            RoundedCorners(8.px)
+                        )
+                    )
+                    .placeholder(R.drawable.img_placeholder)
+                    .error(R.drawable.img_placeholder)
+                    .into(ivPoster)
+
+                root.setOnClickListener {
+                    val intent = Intent(root.context, DetailActivity::class.java)
+                    intent.putExtra("movie_id", movie.id)
+                    root.context.startActivity(intent)
+                }
+            }
+        }
+    }
+
+    companion object {
+        const val VIEW_TYPE_LOADING = 1
+        const val VIEW_TYPE_MOVIE = 2
+
+        private val COMPARATOR = object : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(
+                oldItem: Movie,
+                newItem: Movie
+            ): Boolean {
+                return oldItem == newItem
             }
         }
     }
