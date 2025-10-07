@@ -4,14 +4,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.andriawan.moviedb.databinding.ItemActorBinding
 import com.andriawan.moviedb.databinding.ItemCategoryBinding
-import com.andriawan.moviedb.databinding.ItemMovieBinding
 import com.andriawan.moviedb.ui.detail.DetailActivity
-import com.andriawan.moviedb.utils.extensions.px
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 
 class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 

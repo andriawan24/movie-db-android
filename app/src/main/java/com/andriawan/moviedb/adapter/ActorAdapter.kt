@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andriawan.moviedb.databinding.ItemActorBinding
-import com.andriawan.moviedb.databinding.ItemMovieBinding
 import com.andriawan.moviedb.ui.detail.DetailActivity
 import com.andriawan.moviedb.utils.extensions.px
 import com.bumptech.glide.Glide
