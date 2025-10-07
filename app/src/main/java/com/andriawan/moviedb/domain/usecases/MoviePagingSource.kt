@@ -21,12 +21,10 @@ class MoviePagingSource(
                 )
             )
 
-            val nextPage = if (result.results.isEmpty()) null else result.page + 1
-
             return LoadResult.Page(
                 data = result.results,
-                prevKey = null,
-                nextKey = nextPage
+                prevKey = if (nextPageNumber == 1) null else nextPageNumber - 1,
+                nextKey = if (nextPageNumber >= result.totalPages) null else nextPageNumber + 1
             )
         } catch (e: Exception) {
             return LoadResult.Error(e)

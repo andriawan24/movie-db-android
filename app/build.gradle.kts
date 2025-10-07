@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.kover)
 }
 
 val localProperties = File(rootProject.projectDir, "local.properties")
@@ -104,8 +105,31 @@ dependencies {
     // Paging
     implementation(libs.androidx.paging.runtime.ktx)
 
-    // Testing
+    // Additional testing dependencies
     testImplementation(libs.junit)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.androidx.paging.testing)
+    testImplementation(libs.mockwebserver)
+    testImplementation(libs.turbine)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+}
+
+kover {
+    reports {
+        filters {
+            includes {
+                classes(
+                    "com.andriawan.moviedb.data.network.*",
+                    "com.andriawan.moviedb.data.repository.*",
+                    "com.andriawan.moviedb.domain.usecases.*",
+                    "com.andriawan.moviedb.ui.*",
+                )
+            }
+        }
+    }
 }
