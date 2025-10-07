@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="defaultMargin">16dp</dimen>
+    <dimen name="_minus_2dp">-2dp</dimen>
     <dimen name="_2dp">2dp</dimen>
     <dimen name="_4dp">4dp</dimen>
     <dimen name="_8dp">8dp</dimen>
+    <dimen name="_12dp">12dp</dimen>
     <dimen name="_16dp">16dp</dimen>
     <dimen name="_20dp">20dp</dimen>
     <dimen name="_24dp">24dp</dimen>
     <dimen name="_40dp">40dp</dimen>
+    <dimen name="_60dp">60dp</dimen>
+    <dimen name="_99dp">99dp</dimen>
 </resources>

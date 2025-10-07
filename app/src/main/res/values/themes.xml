@@ -11,4 +11,8 @@
         <item name="boxCornerRadiusBottomEnd">@dimen/_40dp</item>
     </style>
 
+    <style name="AppbarTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:fontFamily">@font/rethink_sans_semibold</item>
+        <item name="android:visibility">gone</item>
+    </style>
 </resources>

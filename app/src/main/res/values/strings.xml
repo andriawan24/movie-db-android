@@ -5,4 +5,8 @@
     <string name="content_description_sad_face">Image of sad face emoji</string>
     <string name="title_movie_not_found">Oh no, you\'ve got nothing!</string>
     <string name="description_movie_not_found">Don\'t worry, you can always try another keywords</string>
+    <string name="action_back">Back</string>
+    <string name="action_search_trailer">Search Trailer</string>
+    <string name="title_actors">Actors</string>
+    <string name="title_categories">Categories</string>
 </resources>
