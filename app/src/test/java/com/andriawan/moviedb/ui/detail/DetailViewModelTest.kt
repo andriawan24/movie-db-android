@@ -5,6 +5,8 @@ import com.andriawan.moviedb.domain.models.Cast
 import com.andriawan.moviedb.domain.models.Credits
 import com.andriawan.moviedb.domain.models.Genre
 import com.andriawan.moviedb.domain.models.MovieDetail
+import com.andriawan.moviedb.domain.usecases.GetMovieCreditsUseCase
+import com.andriawan.moviedb.domain.usecases.GetMovieDetailUseCase
 import com.andriawan.moviedb.utils.result.MovieError
 import com.andriawan.moviedb.utils.result.ResultState
 import kotlinx.coroutines.Dispatchers

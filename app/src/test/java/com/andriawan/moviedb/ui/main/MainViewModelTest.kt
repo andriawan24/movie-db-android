@@ -1,6 +1,7 @@
 package com.andriawan.moviedb.ui.main
 
 import app.cash.turbine.test
+import com.andriawan.moviedb.domain.usecases.GetMoviesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
