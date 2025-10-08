@@ -40,15 +40,15 @@ class MovieListAdapter : PagingDataAdapter<Movie, MovieListAdapter.ViewHolder>(C
     }
 
     inner class ViewHolder(
-        private val binding: ItemMovieBinding
+        val binding: ItemMovieBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: Movie) {
             binding.apply {
                 tvTitle.text = movie.title
-                tvYear.text = movie.releaseDate?.extractYear() ?: "-"
+                tvYear.text = movie.releaseDate.extractYear()
 
-                movie.posterPath?.let { path ->
+                movie.posterPath.let { path ->
                     ivPoster.loadImageRounded(IMAGE_BASE_URL + path)
                 }
 

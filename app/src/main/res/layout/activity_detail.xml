@@ -43,6 +43,34 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:src="@tools:sample/backgrounds/scenic" />
 
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/layoutPosterShimmer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:adjustViewBounds="true"
+                            android:background="@color/shimmer"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintDimensionRatio="H,2:3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@tools:sample/backgrounds/scenic" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_99dp"
@@ -54,122 +82,147 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <include
+                android:id="@+id/layoutShimmerDetail"
+                layout="@layout/shimmer_detail" />
+
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutMainDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_16dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_16dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_margin="@dimen/_16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tvTitle"
-                        android:layout_width="match_parent"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/rethink_sans_semibold"
-                        android:textSize="16sp"
-                        tools:text="How To Train Your Dragon: The Hidden World" />
+                        android:layout_marginEnd="@dimen/_16dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tvMeta"
-                        android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/tvTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rethink_sans_semibold"
+                            android:textSize="16sp"
+                            tools:text="How To Train Your Dragon: The Hidden World" />
+
+                        <TextView
+                            android:id="@+id/tvMeta"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_4dp"
+                            android:fontFamily="@font/rethink_sans_medium"
+                            android:textColor="@color/material_dynamic_secondary50"
+                            tools:text="2024 (ID) • 1h 23m" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_4dp"
+                        app:srcCompat="@drawable/ic_stars"
+                        app:tint="#FFB22C" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4dp"
                         android:fontFamily="@font/rethink_sans_medium"
-                        android:textColor="@color/material_dynamic_secondary50"
-                        tools:text="2024 (ID) • 1h 23m" />
+                        android:textSize="12sp"
+                        tools:text="8/10" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_stars"
-                    app:tint="#FFB22C" />
+                    android:layout_marginHorizontal="@dimen/_16dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/rethink_sans"
+                    android:maxLines="6"
+                    tools:text="Dark themes reduce the luminance emitted by device screens, while still meeting minimum color contrast ratios. They help improve visual ergonomics by reducing eye strain, adjusting brightness to current lighting conditions, and facilitating screen use in dark environments – all while conserving battery power. Devices with OLED screens benefit from the ability to turn off black pixels at any time of day." />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSearchTrailer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16dp"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:fontFamily="@font/rethink_sans_semibold"
+                    android:paddingVertical="@dimen/_16dp"
+                    android:text="@string/action_search_trailer"
+                    app:icon="@drawable/ic_play"
+                    app:iconGravity="textStart" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvRating"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvTitleActor"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_4dp"
-                    android:fontFamily="@font/rethink_sans_medium"
-                    android:textSize="12sp"
-                    tools:text="8/10" />
+                    android:layout_marginHorizontal="@dimen/_16dp"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:fontFamily="@font/rethink_sans_semibold"
+                    android:text="@string/title_actors"
+                    android:textSize="16sp" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/layoutActorLoading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:paddingHorizontal="@dimen/_12dp"
+                    android:visibility="gone">
+
+                    <include layout="@layout/item_actor_shimmer" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvActors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:clipChildren="true"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="@dimen/_12dp"
+                    tools:itemCount="4"
+                    tools:layoutManager="LinearLayoutManager"
+                    tools:listitem="@layout/item_actor"
+                    tools:orientation="horizontal" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16dp"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:fontFamily="@font/rethink_sans_semibold"
+                    android:text="@string/title_categories"
+                    android:textSize="16sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCategories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginBottom="@dimen/_40dp"
+                    android:clipChildren="true"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="@dimen/_12dp"
+                    tools:itemCount="4"
+                    tools:layoutManager="LinearLayoutManager"
+                    tools:listitem="@layout/item_category"
+                    tools:orientation="horizontal" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/rethink_sans"
-                android:maxLines="6"
-                tools:text="Dark themes reduce the luminance emitted by device screens, while still meeting minimum color contrast ratios. They help improve visual ergonomics by reducing eye strain, adjusting brightness to current lighting conditions, and facilitating screen use in dark environments – all while conserving battery power. Devices with OLED screens benefit from the ability to turn off black pixels at any time of day." />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSearchTrailer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16dp"
-                android:layout_marginTop="@dimen/_16dp"
-                android:fontFamily="@font/rethink_sans_semibold"
-                android:paddingVertical="@dimen/_16dp"
-                android:text="@string/action_search_trailer"
-                app:icon="@drawable/ic_play"
-                app:iconGravity="textStart" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16dp"
-                android:layout_marginTop="@dimen/_16dp"
-                android:fontFamily="@font/rethink_sans_semibold"
-                android:text="@string/title_actors"
-                android:textSize="16sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvActors"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8dp"
-                android:clipChildren="true"
-                android:clipToPadding="false"
-                android:paddingHorizontal="@dimen/_12dp"
-                tools:itemCount="4"
-                tools:layoutManager="LinearLayoutManager"
-                tools:listitem="@layout/item_actor"
-                tools:orientation="horizontal" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16dp"
-                android:layout_marginTop="@dimen/_16dp"
-                android:fontFamily="@font/rethink_sans_semibold"
-                android:text="@string/title_categories"
-                android:textSize="16sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvCategories"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8dp"
-                android:layout_marginBottom="@dimen/_40dp"
-                android:clipChildren="true"
-                android:clipToPadding="false"
-                android:paddingHorizontal="@dimen/_12dp"
-                tools:itemCount="4"
-                tools:layoutManager="LinearLayoutManager"
-                tools:listitem="@layout/item_category"
-                tools:orientation="horizontal" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
