@@ -1,5 +1,6 @@
 package com.andriawan.moviedb.data.responses
 
+import com.andriawan.moviedb.domain.models.Movie
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -33,4 +34,25 @@ data class MovieResponse(
     val voteAverage: Double? = null,
     @SerialName("vote_count")
     val voteCount: Int? = null
-)
+) {
+    companion object {
+        fun MovieResponse.toDomain(): Movie {
+            return Movie(
+                adult = this.adult ?: false,
+                backdropPath = this.backdropPath.orEmpty(),
+                genreIds = this.genreIds.orEmpty(),
+                id = this.id ?: 0,
+                originalLanguage = this.originalLanguage.orEmpty(),
+                originalTitle = this.originalTitle.orEmpty(),
+                overview = this.overview.orEmpty(),
+                popularity = this.popularity ?: 0.0,
+                posterPath = this.posterPath.orEmpty(),
+                releaseDate = this.releaseDate.orEmpty(),
+                title = this.title.orEmpty(),
+                video = this.video ?: false,
+                voteAverage = this.voteAverage ?: 0.0,
+                voteCount = this.voteCount ?: 0
+            )
+        }
+    }
+}
