@@ -46,6 +46,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     v.clearFocus()
 
                     val query = etSearch.text.toString().trim()
+                    binding.apply {
+
+                    }
                     mainViewModel.searchMovies(query = query)
                 }
                 true
@@ -80,13 +83,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             movieListAdapter.loadStateFlow.collectLatest { loadState ->
                 val refresh = loadState.refresh
 
-                binding.layoutEmptyMovieList.isVisible = false
+                binding.apply {
+                    layoutEmptyMovieList.isVisible = false
+                    pbLoadingMovieList.isVisible = false
+                    rvMovies.isVisible = true
+                }
 
+                // First loading state
+                if (refresh is LoadState.Loading) {
+                    binding.apply {
+                        pbLoadingMovieList.isVisible = true
+                        rvMovies.isVisible = false
+                    }
+                }
+
+                // First empty state
                 if (refresh is LoadState.NotLoading && movieListAdapter.itemCount == 0) {
                     binding.layoutEmptyMovieList.isVisible = true
                 }
 
-                if (refresh is LoadState.Error) {
+                // First error state
+                if (refresh is LoadState.Error && movieListAdapter.itemCount == 0) {
                     refresh.error.let {
                         Timber.e("Error occurred: ${it.message}")
                         binding.layoutEmptyMovieList.isVisible = true
