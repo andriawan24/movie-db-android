@@ -11,6 +11,7 @@ import com.andriawan.moviedb.databinding.ItemMovieBinding
 import com.andriawan.moviedb.domain.models.Movie
 import com.andriawan.moviedb.ui.detail.DetailActivity
 import com.andriawan.moviedb.utils.Constants.IMAGE_BASE_URL
+import com.andriawan.moviedb.utils.extensions.extractYear
 import com.andriawan.moviedb.utils.extensions.px
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -51,7 +52,7 @@ class MovieListAdapter : PagingDataAdapter<Movie, MovieListAdapter.ViewHolder>(C
 
             binding.apply {
                 tvTitle.text = movie.title
-                tvYear.text = movie.releaseDate
+                tvYear.text = movie.releaseDate.extractYear()
 
                 Glide.with(root.context)
                     .load(posterUrl)
