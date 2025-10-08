@@ -2,6 +2,7 @@ package com.andriawan.moviedb.ui.detail
 
 import android.content.Intent
 import android.graphics.Color
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
@@ -9,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updateMargins
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -57,7 +59,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
         lifecycleScope.launch {
             detailViewModel.getMovieDetail(movieId).observe(
                 onLoading = {
-                    Timber.d("Loading movie")
+                    startShimmerDetail()
                 },
                 onSuccess = { movie ->
                     loadPosterImage(movie.posterPath)
@@ -65,13 +67,67 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
                     setupTrailerButtonListener(movie)
                 },
                 onError = { error ->
-                    Timber.d("Error get detail movie: ${error.message}")
+                    stopShimmerDetail()
                     ErrorBottomSheet(error.message).show(
                         supportFragmentManager,
                         ErrorBottomSheet.TAG
                     )
                 }
             )
+        }
+    }
+
+    private fun startShimmerDetail() {
+        binding.apply {
+            layoutShimmerDetail.root.apply {
+                startShimmer()
+                visibility = View.VISIBLE
+            }
+
+            layoutPosterShimmer.apply {
+                startShimmer()
+                visibility = View.VISIBLE
+            }
+
+            layoutMainDetail.isVisible = false
+        }
+    }
+
+    private fun stopShimmerDetail() {
+        binding.apply {
+            layoutShimmerDetail.root.apply {
+                stopShimmer()
+                visibility = View.GONE
+            }
+
+            layoutPosterShimmer.apply {
+                stopShimmer()
+                visibility = View.VISIBLE
+            }
+
+            layoutMainDetail.isVisible = true
+        }
+    }
+
+    private fun startShimmerActor() {
+        binding.apply {
+            layoutActorLoading.apply {
+                startShimmer()
+                visibility = View.VISIBLE
+            }
+
+            rvActors.isVisible = false
+        }
+    }
+
+    private fun stopShimmerActor() {
+        binding.apply {
+            layoutActorLoading.apply {
+                stopShimmer()
+                visibility = View.GONE
+            }
+
+            rvActors.isVisible = true
         }
     }
 
@@ -114,6 +170,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
             categoryAdapter.submitList(movie.genres)
 
             observeMovieCredits(movie.id)
+            stopShimmerDetail()
         }
     }
 
@@ -121,13 +178,18 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
         lifecycleScope.launch {
             detailViewModel.getMovieCredits(movieId).observe(
                 onLoading = {
-
+                    startShimmerActor()
                 },
                 onSuccess = {
                     actorAdapter.submitList(it.cast)
+                    stopShimmerActor()
                 },
                 onError = {
-
+                    stopShimmerActor()
+                    binding.apply {
+                        rvActors.isVisible = false
+                        tvTitleActor.isVisible = false
+                    }
                 }
             )
         }
