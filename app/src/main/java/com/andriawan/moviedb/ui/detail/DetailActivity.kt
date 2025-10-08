@@ -65,11 +65,10 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
                     updateUi(movie)
                     setupTrailerButtonListener(movie)
                 },
-                onError = {
-                    Timber.d("Error get detail movie: ${it.message}")
+                onError = { error ->
+                    Timber.d("Error get detail movie: ${error.message}")
                     ErrorBottomSheet(
-                        message = it.message.orEmpty()
-                            .ifEmpty { getString(R.string.error_unknown) }
+                        message = error.message
                     ).show(supportFragmentManager, ErrorBottomSheet.TAG)
                 }
             )

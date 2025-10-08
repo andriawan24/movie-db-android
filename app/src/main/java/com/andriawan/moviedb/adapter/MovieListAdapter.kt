@@ -51,9 +51,11 @@ class MovieListAdapter : PagingDataAdapter<Movie, MovieListAdapter.ViewHolder>(C
         fun bind(movie: Movie) {
             binding.apply {
                 tvTitle.text = movie.title
-                tvYear.text = movie.releaseDate.extractYear()
+                tvYear.text = movie.releaseDate?.extractYear() ?: "-"
 
-                ivPoster.loadImageRounded(IMAGE_BASE_URL + movie.posterPath)
+                movie.posterPath?.let { path ->
+                    ivPoster.loadImageRounded(IMAGE_BASE_URL + path)
+                }
 
                 root.setOnClickListener {
                     val intent = Intent(root.context, DetailActivity::class.java)

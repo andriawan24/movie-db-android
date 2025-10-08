@@ -38,17 +38,17 @@ data class MovieResponse(
     companion object {
         fun MovieResponse.toDomain(): Movie {
             return Movie(
-                adult = this.adult ?: false,
-                backdropPath = this.backdropPath.orEmpty(),
-                genreIds = this.genreIds.orEmpty(),
                 id = this.id ?: 0,
+                title = this.title.orEmpty(),
+                adult = this.adult ?: false,
+                backdropPath = this.backdropPath,
+                genreIds = this.genreIds ?: emptyList(),
                 originalLanguage = this.originalLanguage.orEmpty(),
                 originalTitle = this.originalTitle.orEmpty(),
                 overview = this.overview.orEmpty(),
                 popularity = this.popularity ?: 0.0,
-                posterPath = this.posterPath.orEmpty(),
-                releaseDate = this.releaseDate.orEmpty(),
-                title = this.title.orEmpty(),
+                posterPath = this.posterPath,
+                releaseDate = this.releaseDate,
                 video = this.video ?: false,
                 voteAverage = this.voteAverage ?: 0.0,
                 voteCount = this.voteCount ?: 0

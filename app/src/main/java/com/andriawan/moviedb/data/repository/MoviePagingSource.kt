@@ -1,8 +1,7 @@
-package com.andriawan.moviedb.domain.usecases
+package com.andriawan.moviedb.data.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.andriawan.moviedb.data.repository.MovieRepository
 import com.andriawan.moviedb.data.requests.GetMovieListRequest
 import com.andriawan.moviedb.domain.models.Movie
 
