@@ -1,0 +1,47 @@
+name: MovieDB CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ "*" ]
+
+jobs:
+  checks:
+    name: Unit Tests • Coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          api-level: 36
+          target: default
+          build-tools: 36.0.0
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Run unit tests (Debug)
+        run: ./gradlew testDebugUnitTest --no-daemon
+
+      - name: Generate Kover XML & HTML reports
+        run: |
+          ./gradlew koverHtmlReport --no-daemon
+
+      - name: Upload coverage report (HTML)
+        uses: actions/upload-artifact@v4
+        with:
+          name: kover-report-html
+          path: |
+            **/build/reports/kover/html/**
