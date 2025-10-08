@@ -39,11 +39,11 @@ class MovieRepositoryImplTest {
             totalResults = 100
         )
 
-        whenever(movieAPI.getMovies(1, "test")).thenReturn(mockResponse)
+        whenever(movieAPI.searchMovies(1, "test")).thenReturn(mockResponse)
 
         val result = repository.getMovies(request)
 
-        verify(movieAPI).getMovies(1, "test")
+        verify(movieAPI).searchMovies(1, "test")
         assertEquals(1, result.page)
         assertEquals(1, result.results.size)
         assertEquals(123, result.results.first().id)
@@ -67,11 +67,11 @@ class MovieRepositoryImplTest {
             totalResults = 200
         )
 
-        whenever(movieAPI.getMovies(2)).thenReturn(mockResponse)
+        whenever(movieAPI.discoverMovies(2)).thenReturn(mockResponse)
 
         val result = repository.getMovies(request)
 
-        verify(movieAPI).getMovies(2)
+        verify(movieAPI).discoverMovies(2)
         assertEquals(2, result.page)
         assertEquals(1, result.results.size)
         assertEquals(456, result.results.first().id)
@@ -87,7 +87,7 @@ class MovieRepositoryImplTest {
             totalResults = 0
         )
 
-        whenever(movieAPI.getMovies(1)).thenReturn(mockResponse)
+        whenever(movieAPI.discoverMovies(1)).thenReturn(mockResponse)
 
         val result = repository.getMovies(request)
 
@@ -122,7 +122,7 @@ class MovieRepositoryImplTest {
             totalResults = 1
         )
 
-        whenever(movieAPI.getMovies(1)).thenReturn(mockResponse)
+        whenever(movieAPI.discoverMovies(1)).thenReturn(mockResponse)
 
         val result = repository.getMovies(request)
 
@@ -157,7 +157,7 @@ class MovieRepositoryImplTest {
             totalResults = 3
         )
 
-        whenever(movieAPI.getMovies(1)).thenReturn(mockResponse)
+        whenever(movieAPI.discoverMovies(1)).thenReturn(mockResponse)
 
         val result = repository.getMovies(request)
 
