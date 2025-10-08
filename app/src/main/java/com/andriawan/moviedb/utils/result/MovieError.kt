@@ -4,7 +4,6 @@ import okio.IOException
 
 sealed class MovieError(open val message: String) {
     data class NetworkError(override val message: String) : MovieError(message)
-    data class NotFound(val id: Int) : MovieError("Movie with id $id not found")
     data object Unauthorized : MovieError("Unauthorized access")
     data class Unknown(override val message: String) : MovieError(message)
 

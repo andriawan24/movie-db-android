@@ -26,7 +26,6 @@ import com.andriawan.moviedb.utils.extensions.getRuntimeFormatted
 import com.andriawan.moviedb.utils.extensions.loadImage
 import com.andriawan.moviedb.utils.extensions.observe
 import com.andriawan.moviedb.utils.extensions.px
-import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber

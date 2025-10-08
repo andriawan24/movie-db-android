@@ -6,17 +6,12 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.andriawan.moviedb.R
 import com.andriawan.moviedb.databinding.ItemMovieBinding
 import com.andriawan.moviedb.domain.models.Movie
 import com.andriawan.moviedb.ui.detail.DetailActivity
 import com.andriawan.moviedb.utils.Constants.IMAGE_BASE_URL
 import com.andriawan.moviedb.utils.extensions.extractYear
 import com.andriawan.moviedb.utils.extensions.loadImageRounded
-import com.andriawan.moviedb.utils.extensions.px
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 
 class MovieListAdapter : PagingDataAdapter<Movie, MovieListAdapter.ViewHolder>(COMPARATOR) {
     override fun onCreateViewHolder(
