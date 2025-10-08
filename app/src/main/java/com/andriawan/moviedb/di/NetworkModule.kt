@@ -27,14 +27,14 @@ object NetworkModule {
         .addInterceptor(HeaderApiKeyInterceptor())
         .build()
 
-
     @Provides
     fun providesRetrofit(client: OkHttpClient): Retrofit {
         val contentTypeJson = "application/json".toMediaType()
+        val json = Json { ignoreUnknownKeys = true }
 
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(Json.asConverterFactory(contentTypeJson))
+            .addConverterFactory(json.asConverterFactory(contentTypeJson))
             .client(client)
             .build()
     }
