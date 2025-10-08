@@ -33,7 +33,6 @@ class ActorAdapter : ListAdapter<Cast, ActorAdapter.ViewHolder>(COMPARATOR) {
         fun bind(cast: Cast) {
             binding.apply {
                 ivActor.loadImageRounded(IMAGE_BASE_URL + cast.profilePath)
-
                 tvName.text = cast.name
                 tvCharacterName.text = cast.character
             }

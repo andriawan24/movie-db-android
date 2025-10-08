@@ -23,12 +23,8 @@ interface MovieAPI {
     ): PaginationMovieResponse
 
     @GET("movie/{id}")
-    suspend fun getMovieDetail(
-        @Path("id") id: Int
-    ): MovieDetailResponse
+    suspend fun getMovieDetail(@Path("id") id: Int): MovieDetailResponse
 
     @GET("movie/{id}/credits")
-    suspend fun getMovieCredits(
-        @Path("id") id: Int
-    ): CreditsResponse
+    suspend fun getMovieCredits(@Path("id") id: Int): CreditsResponse
 }
