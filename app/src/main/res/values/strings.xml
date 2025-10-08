@@ -15,4 +15,6 @@
     <string name="action_try_again">Try Again</string>
     <string name="label_rating">%1$.2f/10</string>
     <string name="label_meta">%1$s (%2$s) • %3$s</string>
+    <string name="error_youtube_not_found">No app found to handle YouTube search.</string>
+    <string name="template_trailer_youtube_search">Trailer %1$s</string>
 </resources>

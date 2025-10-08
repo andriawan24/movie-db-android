@@ -66,9 +66,10 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
                 },
                 onError = { error ->
                     Timber.d("Error get detail movie: ${error.message}")
-                    ErrorBottomSheet(
-                        message = error.message
-                    ).show(supportFragmentManager, ErrorBottomSheet.TAG)
+                    ErrorBottomSheet(error.message).show(
+                        supportFragmentManager,
+                        ErrorBottomSheet.TAG
+                    )
                 }
             )
         }
@@ -81,14 +82,14 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
     private fun setupTrailerButtonListener(movie: MovieDetail) {
         binding.apply {
             btnSearchTrailer.setOnClickListener {
-                val searchQuery = "Trailer ${movie.title}"
+                val searchQuery = getString(R.string.template_trailer_youtube_search, movie.title)
                 val url = "https://www.youtube.com/results?search_query=$searchQuery"
                 val intent = Intent(Intent.ACTION_VIEW, url.toUri())
 
                 try {
                     startActivity(intent)
                 } catch (_: Exception) {
-                    ErrorBottomSheet("No app found to handle YouTube search.")
+                    ErrorBottomSheet(getString(R.string.error_youtube_not_found))
                         .show(supportFragmentManager, ErrorBottomSheet.TAG)
                 }
             }
@@ -140,14 +141,26 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
     }
 
     private fun initAdapter() {
-        binding.rvActors.apply {
-            layoutManager = LinearLayoutManager(this@DetailActivity, RecyclerView.HORIZONTAL, false)
-            adapter = actorAdapter
-        }
+        binding.apply {
+            rvActors.apply {
+                layoutManager = LinearLayoutManager(
+                    this@DetailActivity,
+                    RecyclerView.HORIZONTAL,
+                    false
+                )
 
-        binding.rvCategories.apply {
-            layoutManager = LinearLayoutManager(this@DetailActivity, RecyclerView.HORIZONTAL, false)
-            adapter = categoryAdapter
+                adapter = actorAdapter
+            }
+
+            rvCategories.apply {
+                layoutManager = LinearLayoutManager(
+                    this@DetailActivity,
+                    RecyclerView.HORIZONTAL,
+                    false
+                )
+
+                adapter = categoryAdapter
+            }
         }
     }
 
