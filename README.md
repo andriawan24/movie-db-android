@@ -1,7 +1,10 @@
 
 # Movie DB Android
 
+[![MovieDB CI/CD](https://github.com/andriawan24/movie-db-android/actions/workflows/actions.yml/badge.svg)](https://github.com/andriawan24/movie-db-android/actions/workflows/actions.yml)
+
 The app is to showcase list-to-detail movie app
+
 ## Tech Stack
 
 * **100% Kotlin**, using flow and coroutines for asynchronous background thread
@@ -22,6 +25,10 @@ The structure module used follows the guidelines of a clean architecture by divi
 - utils : Define helper const and functions
 
 ## Demonstration
+<ul>
+  <img width="200" alt="Screenshot_20251008_182353" src="https://github.com/user-attachments/assets/1c5a9fa7-ea15-489c-90df-6517c9bdc532" />
+  <img width="200" style="margin-left: 2rem;margin-top:2rem" alt="Screenshot_20251008_182410" src="https://github.com/user-attachments/assets/ace8de10-66f6-4564-87a1-e0292d70c7b2" />
+</ul>
 
 
 ## How to run the app
