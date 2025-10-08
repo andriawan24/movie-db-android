@@ -102,7 +102,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
 
             layoutPosterShimmer.apply {
                 stopShimmer()
-                visibility = View.VISIBLE
+                visibility = View.GONE
             }
 
             layoutMainDetail.isVisible = true
@@ -166,9 +166,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
                 movie.productionCountries.firstOrNull()?.iso31661 ?: "-",
                 movie.runtime.getRuntimeFormatted()
             )
-
             categoryAdapter.submitList(movie.genres)
-
             observeMovieCredits(movie.id)
             stopShimmerDetail()
         }
