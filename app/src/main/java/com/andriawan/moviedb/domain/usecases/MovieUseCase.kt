@@ -1,16 +1,12 @@
 package com.andriawan.moviedb.domain.usecases
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.andriawan.moviedb.data.repository.MovieRepository
 import com.andriawan.moviedb.domain.models.Movie
+import com.andriawan.moviedb.domain.models.MovieDetail
+import com.andriawan.moviedb.domain.utils.ResultState
 import kotlinx.coroutines.flow.Flow
 
-class MovieUseCase(private val movieRepository: MovieRepository) {
-    fun getMovies(query: String?): Flow<PagingData<Movie>> {
-        return Pager(PagingConfig(pageSize = 20)) {
-            MoviePagingSource(movieRepository, query)
-        }.flow
-    }
+interface MovieUseCase {
+    fun getMovies(query: String?): Flow<PagingData<Movie>>
+    fun getMovieDetail(id: Int): Flow<ResultState<MovieDetail>>
 }

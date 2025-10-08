@@ -1,19 +1,27 @@
 package com.andriawan.moviedb.data.repository
 
 import com.andriawan.moviedb.data.network.MovieAPI
+import com.andriawan.moviedb.data.requests.GetMovieDetailRequest
 import com.andriawan.moviedb.data.requests.GetMovieListRequest
+import com.andriawan.moviedb.data.responses.MovieDetailResponse.Companion.toDomain
+import com.andriawan.moviedb.data.responses.PaginationMovieResponse.Companion.toDomain
+import com.andriawan.moviedb.domain.models.MovieDetail
 import com.andriawan.moviedb.domain.models.PaginationMovie
-import javax.inject.Inject
 
-class MovieRepositoryImpl @Inject constructor(private val api: MovieAPI) : MovieRepository {
+class MovieRepositoryImpl(private val api: MovieAPI) : MovieRepository {
 
     override suspend fun getMovies(request: GetMovieListRequest): PaginationMovie {
         val response = if (request.query != null) {
-            api.getMovies(request.page, request.query)
+            api.searchMovies(request.page, request.query)
         } else {
-            api.getMovies(request.page)
+            api.discoverMovies(request.page)
         }
 
-        return PaginationMovie.from(response)
+        return response.toDomain()
+    }
+
+    override suspend fun getMovieDetail(request: GetMovieDetailRequest): MovieDetail {
+        val response = api.getMovieDetail(id = request.id)
+        return response.toDomain()
     }
 }

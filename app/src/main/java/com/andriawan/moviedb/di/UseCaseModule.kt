@@ -2,6 +2,7 @@ package com.andriawan.moviedb.di
 
 import com.andriawan.moviedb.data.repository.MovieRepository
 import com.andriawan.moviedb.domain.usecases.MovieUseCase
+import com.andriawan.moviedb.domain.usecases.MovieUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,5 +16,5 @@ object UseCaseModule {
     @Provides
     @ViewModelScoped
     fun providesGetMovieUseCase(movieRepository: MovieRepository): MovieUseCase =
-        MovieUseCase(movieRepository)
+        MovieUseCaseImpl(movieRepository)
 }

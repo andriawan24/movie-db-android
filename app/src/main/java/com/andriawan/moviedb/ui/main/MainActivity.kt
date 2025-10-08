@@ -35,7 +35,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun initUI() {
         setupSystemPadding(isTopEnabled = true, isBottomEnabled = true)
         setupRecyclerView()
-        observeViewModel()
+        initObserver()
     }
 
     override fun initListener() {
@@ -60,74 +60,94 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.rvMovies.apply {
             adapter = movieListAdapter
                 .withLoadStateFooter(MovieLoadStateAdapter(movieListAdapter::retry))
-            val gridLayoutManager = GridLayoutManager(this@MainActivity, 2)
-            layoutManager = gridLayoutManager
-            addItemDecoration(GridSpacerDecorator(2))
-            gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int {
-                    val viewType = movieListAdapter.getItemViewType(position)
-                    return if (viewType == VIEW_TYPE_LOADING) 2 else 1
+
+            val gridLayoutManager = GridLayoutManager(this@MainActivity, 2).apply {
+                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        val viewType = movieListAdapter.getItemViewType(position)
+                        return if (viewType == VIEW_TYPE_LOADING) 2 else 1
+                    }
                 }
             }
+
+            layoutManager = gridLayoutManager
+
+            // Add spacer decoration to grid recycler view
+            addItemDecoration(GridSpacerDecorator(2))
         }
     }
 
-    private fun observeViewModel() {
+    private fun initObserver() {
+        observeMovieData()
+        observeLoadState()
+    }
+
+    private fun observeMovieData() {
         lifecycleScope.launch {
             mainViewModel.movies.collectLatest { pagingData ->
                 movieListAdapter.submitData(pagingData)
             }
         }
+    }
 
+    private fun observeLoadState() {
         lifecycleScope.launch {
             movieListAdapter.loadStateFlow.collectLatest { loadState ->
-                val refresh = loadState.refresh
+                resetState()
+                handleFirstLoadingState(loadState.refresh)
+                handleFirstEmptyState(loadState.refresh)
+                handleFirstErrorState(loadState.refresh)
+            }
+        }
+    }
 
-                binding.apply {
-                    layoutEmptyMovieList.isVisible = false
-                    pbLoadingMovieList.isVisible = false
-                    rvMovies.isVisible = true
-                }
+    private fun handleFirstErrorState(refresh: LoadState) {
+        if (refresh is LoadState.Error && movieListAdapter.itemCount == 0) {
+            refresh.error.let {
+                Timber.e("Error occurred: ${it.message}")
+                binding.layoutEmptyMovieList.isVisible = true
 
-                // First loading state
-                if (refresh is LoadState.Loading) {
-                    binding.apply {
-                        pbLoadingMovieList.isVisible = true
-                        rvMovies.isVisible = false
+                when (it) {
+                    is IOException -> {
+                        ErrorBottomSheet(getString(R.string.error_no_internet)).show(
+                            supportFragmentManager,
+                            ErrorBottomSheet.TAG
+                        )
                     }
-                }
 
-                // First empty state
-                if (refresh is LoadState.NotLoading && movieListAdapter.itemCount == 0) {
-                    binding.layoutEmptyMovieList.isVisible = true
-                }
+                    // TODO: Handling other errors
 
-                // First error state
-                if (refresh is LoadState.Error && movieListAdapter.itemCount == 0) {
-                    refresh.error.let {
-                        Timber.e("Error occurred: ${it.message}")
-                        binding.layoutEmptyMovieList.isVisible = true
-
-                        when (it) {
-                            is IOException -> {
-                                ErrorBottomSheet(getString(R.string.error_no_internet)).show(
-                                    supportFragmentManager,
-                                    ErrorBottomSheet.TAG
-                                )
-                            }
-
-                            // TODO: Handling other errors
-
-                            else -> {
-                                ErrorBottomSheet(getString(R.string.error_unknown)).show(
-                                    supportFragmentManager,
-                                    ErrorBottomSheet.TAG
-                                )
-                            }
-                        }
+                    else -> {
+                        ErrorBottomSheet(getString(R.string.error_unknown)).show(
+                            supportFragmentManager,
+                            ErrorBottomSheet.TAG
+                        )
                     }
                 }
             }
+        }
+    }
+
+    private fun handleFirstEmptyState(refresh: LoadState) {
+        if (refresh is LoadState.NotLoading && movieListAdapter.itemCount == 0) {
+            binding.layoutEmptyMovieList.isVisible = true
+        }
+    }
+
+    private fun handleFirstLoadingState(refresh: LoadState) {
+        if (refresh is LoadState.Loading) {
+            binding.apply {
+                pbLoadingMovieList.isVisible = true
+                rvMovies.isVisible = false
+            }
+        }
+    }
+
+    private fun resetState() {
+        binding.apply {
+            layoutEmptyMovieList.isVisible = false
+            pbLoadingMovieList.isVisible = false
+            rvMovies.isVisible = true
         }
     }
 }

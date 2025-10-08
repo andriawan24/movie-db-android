@@ -76,7 +76,7 @@ class MovieAPITest {
                 .setBody(mockResponse)
         )
 
-        val response = movieAPI.getMovies(page = 1)
+        val response = movieAPI.discoverMovies(page = 1)
 
         assertEquals(1, response.page)
         assertEquals(1, response.results?.size)
@@ -114,7 +114,7 @@ class MovieAPITest {
                 .setBody(mockResponse)
         )
 
-        val response = movieAPI.getMovies(page = 1, query = "test")
+        val response = movieAPI.searchMovies(page = 1, query = "test")
 
         assertEquals(1, response.page)
         assertEquals(1, response.results?.size)
@@ -138,7 +138,7 @@ class MovieAPITest {
                 .setBody(mockResponse)
         )
 
-        movieAPI.getMovies(page = 1, includeAdult = true)
+        movieAPI.discoverMovies(page = 1, includeAdult = true)
 
         val request = mockWebServer.takeRequest()
         assert(request.path?.contains("include_adult=true") == true)
@@ -161,7 +161,7 @@ class MovieAPITest {
                 .setBody(mockResponse)
         )
 
-        val response = movieAPI.getMovies(page = 1)
+        val response = movieAPI.discoverMovies(page = 1)
 
         assertEquals(0, response.results?.size)
         assertEquals(0, response.totalResults)

@@ -24,7 +24,7 @@ class MovieUseCaseTest {
     @Before
     fun setUp() {
         movieRepository = mock()
-        movieUseCase = MovieUseCase(movieRepository)
+        movieUseCase = MovieUseCaseImpl(movieRepository)
     }
 
     @Test

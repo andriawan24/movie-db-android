@@ -5,6 +5,7 @@ import app.cash.turbine.test
 import com.andriawan.moviedb.data.repository.MovieRepository
 import com.andriawan.moviedb.domain.models.PaginationMovie
 import com.andriawan.moviedb.domain.usecases.MovieUseCase
+import com.andriawan.moviedb.domain.usecases.MovieUseCaseImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -33,7 +34,7 @@ class MainViewModelTest {
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
         movieRepository = mock()
-        movieUseCase = MovieUseCase(movieRepository)
+        movieUseCase = MovieUseCaseImpl(movieRepository)
         viewModel = MainViewModel(movieUseCase)
     }
 
