@@ -24,10 +24,6 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
-        with:
-          api-level: 36
-          target: default
-          build-tools: 36.0.0
 
       - name: Make gradlew executable
         run: chmod +x gradlew
@@ -64,10 +60,6 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
-        with:
-          api-level: 36
-          target: default
-          build-tools: 36.0.0
 
       - name: Make gradlew executable
         run: chmod +x gradlew
