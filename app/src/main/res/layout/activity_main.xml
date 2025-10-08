@@ -49,16 +49,15 @@
         tools:spanCount="2"
         tools:visibility="visible" />
 
-    <ProgressBar
-        android:id="@+id/pbLoadingMovieList"
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/layoutMovieShimmer"
+        layout="@layout/layout_movie_shimmer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
+        android:layout_marginTop="@dimen/_16dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilSearch" />
+        app:layout_constraintTop_toBottomOf="@id/tilSearch"
+        tools:visibility="visible" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/layoutEmptyMovieList"

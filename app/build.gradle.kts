@@ -105,6 +105,9 @@ dependencies {
     // Paging
     implementation(libs.androidx.paging.runtime.ktx)
 
+    // Shimmer
+    implementation(libs.shimmer)
+
     // Additional testing dependencies
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)

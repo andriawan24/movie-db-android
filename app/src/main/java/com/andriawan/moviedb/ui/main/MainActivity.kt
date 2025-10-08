@@ -1,5 +1,6 @@
 package com.andriawan.moviedb.ui.main
 
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -108,21 +109,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 binding.layoutEmptyMovieList.isVisible = true
 
                 when (it) {
-                    is IOException -> {
-                        ErrorBottomSheet(getString(R.string.error_no_internet)).show(
-                            supportFragmentManager,
-                            ErrorBottomSheet.TAG
-                        )
-                    }
+                    is IOException -> ErrorBottomSheet(getString(R.string.error_no_internet)).show(
+                        supportFragmentManager,
+                        ErrorBottomSheet.TAG
+                    )
 
                     // TODO: Handling other errors
 
-                    else -> {
-                        ErrorBottomSheet(getString(R.string.error_unknown)).show(
-                            supportFragmentManager,
-                            ErrorBottomSheet.TAG
-                        )
-                    }
+                    else -> ErrorBottomSheet(getString(R.string.error_unknown)).show(
+                        supportFragmentManager,
+                        ErrorBottomSheet.TAG
+                    )
                 }
             }
         }
@@ -137,7 +134,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private fun handleFirstLoadingState(refresh: LoadState) {
         if (refresh is LoadState.Loading) {
             binding.apply {
-                pbLoadingMovieList.isVisible = true
+                layoutMovieShimmer.root.apply {
+                    startShimmer()
+                    visibility = View.VISIBLE
+                }
                 rvMovies.isVisible = false
             }
         }
@@ -146,7 +146,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private fun resetState() {
         binding.apply {
             layoutEmptyMovieList.isVisible = false
-            pbLoadingMovieList.isVisible = false
+            layoutMovieShimmer.root.apply {
+                stopShimmer()
+                visibility = View.GONE
+            }
             rvMovies.isVisible = true
         }
     }
