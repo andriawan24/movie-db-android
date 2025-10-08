@@ -1,5 +1,6 @@
 package com.andriawan.moviedb.data.network
 
+import com.andriawan.moviedb.data.responses.CreditsResponse
 import com.andriawan.moviedb.data.responses.MovieDetailResponse
 import com.andriawan.moviedb.data.responses.PaginationMovieResponse
 import retrofit2.http.GET
@@ -25,4 +26,9 @@ interface MovieAPI {
     suspend fun getMovieDetail(
         @Path("id") id: Int
     ): MovieDetailResponse
+
+    @GET("movie/{id}/credits")
+    suspend fun getMovieCredits(
+        @Path("id") id: Int
+    ): CreditsResponse
 }

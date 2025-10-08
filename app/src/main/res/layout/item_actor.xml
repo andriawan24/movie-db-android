@@ -30,13 +30,15 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rethink_sans_semibold"
-                android:text="Chris Hermsworth"
+                tools:text="Chris Hermsworth"
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tvCharacterName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4dp"

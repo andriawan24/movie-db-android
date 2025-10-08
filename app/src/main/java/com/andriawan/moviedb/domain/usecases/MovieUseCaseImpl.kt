@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.andriawan.moviedb.data.repository.MovieRepository
 import com.andriawan.moviedb.data.requests.GetMovieDetailRequest
+import com.andriawan.moviedb.domain.models.Credits
 import com.andriawan.moviedb.domain.models.Movie
 import com.andriawan.moviedb.domain.models.MovieDetail
 import com.andriawan.moviedb.domain.utils.ResultState
@@ -22,6 +23,16 @@ class MovieUseCaseImpl(private val movieRepository: MovieRepository) : MovieUseC
         emit(ResultState.Loading)
         try {
             val result = movieRepository.getMovieDetail(GetMovieDetailRequest(id))
+            emit(ResultState.Success(result))
+        } catch (e: Exception) {
+            emit(ResultState.Error(e))
+        }
+    }
+
+    override fun getMovieCredits(id: Int): Flow<ResultState<Credits>> = flow {
+        emit(ResultState.Loading)
+        try {
+            val result = movieRepository.getMovieCredits(GetMovieDetailRequest(id))
             emit(ResultState.Success(result))
         } catch (e: Exception) {
             emit(ResultState.Error(e))

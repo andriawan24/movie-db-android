@@ -1,17 +1,16 @@
 package com.andriawan.moviedb.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.andriawan.moviedb.databinding.ItemActorBinding
-import com.andriawan.moviedb.ui.detail.DetailActivity
-import com.andriawan.moviedb.utils.extensions.px
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
+import com.andriawan.moviedb.domain.models.Cast
+import com.andriawan.moviedb.utils.Constants.IMAGE_BASE_URL
+import com.andriawan.moviedb.utils.extensions.loadImageRounded
 
-class ActorAdapter : RecyclerView.Adapter<ActorAdapter.ViewHolder>() {
+class ActorAdapter : ListAdapter<Cast, ActorAdapter.ViewHolder>(COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemActorBinding.inflate(
@@ -24,26 +23,31 @@ class ActorAdapter : RecyclerView.Adapter<ActorAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = 10
-
-    inner class ViewHolder(
+    class ViewHolder(
         private val binding: ItemActorBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind() {
-            Glide.with(binding.root.context)
-                .load("https://media.themoviedb.org/t/p/w440_and_h660_face/xdzLBZjCVSEsic7m7nJc4jNJZVW.jpg")
-                .apply(
-                    RequestOptions.bitmapTransform(RoundedCorners(8.px))
-                )
-                .into(binding.ivActor)
+        fun bind(cast: Cast) {
+            binding.apply {
+                ivActor.loadImageRounded(IMAGE_BASE_URL + cast.profilePath)
 
-            binding.root.setOnClickListener {
-                val intent = Intent(binding.root.context, DetailActivity::class.java)
-                binding.root.context.startActivity(intent)
+                tvName.text = cast.name
+                tvCharacterName.text = cast.character
+            }
+        }
+    }
+
+    companion object {
+        val COMPARATOR = object : DiffUtil.ItemCallback<Cast>() {
+            override fun areItemsTheSame(oldItem: Cast, newItem: Cast): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Cast, newItem: Cast): Boolean {
+                return oldItem == newItem
             }
         }
     }

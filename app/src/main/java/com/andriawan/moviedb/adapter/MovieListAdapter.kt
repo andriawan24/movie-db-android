@@ -12,6 +12,7 @@ import com.andriawan.moviedb.domain.models.Movie
 import com.andriawan.moviedb.ui.detail.DetailActivity
 import com.andriawan.moviedb.utils.Constants.IMAGE_BASE_URL
 import com.andriawan.moviedb.utils.extensions.extractYear
+import com.andriawan.moviedb.utils.extensions.loadImageRounded
 import com.andriawan.moviedb.utils.extensions.px
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -48,22 +49,11 @@ class MovieListAdapter : PagingDataAdapter<Movie, MovieListAdapter.ViewHolder>(C
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: Movie) {
-            val posterUrl = IMAGE_BASE_URL + movie.posterPath
-
             binding.apply {
                 tvTitle.text = movie.title
                 tvYear.text = movie.releaseDate.extractYear()
 
-                Glide.with(root.context)
-                    .load(posterUrl)
-                    .apply(
-                        RequestOptions.bitmapTransform(
-                            RoundedCorners(8.px)
-                        )
-                    )
-                    .placeholder(R.drawable.img_placeholder)
-                    .error(R.drawable.img_placeholder)
-                    .into(ivPoster)
+                ivPoster.loadImageRounded(IMAGE_BASE_URL + movie.posterPath)
 
                 root.setOnClickListener {
                     val intent = Intent(root.context, DetailActivity::class.java)

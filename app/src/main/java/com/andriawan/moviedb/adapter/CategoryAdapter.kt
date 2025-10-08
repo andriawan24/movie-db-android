@@ -1,13 +1,14 @@
 package com.andriawan.moviedb.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.andriawan.moviedb.databinding.ItemCategoryBinding
-import com.andriawan.moviedb.ui.detail.DetailActivity
+import com.andriawan.moviedb.domain.models.Genre
 
-class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter : ListAdapter<Genre, CategoryAdapter.ViewHolder>(COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemCategoryBinding.inflate(
@@ -20,21 +21,26 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = 10
-
-    inner class ViewHolder(
+    class ViewHolder(
         private val binding: ItemCategoryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind() {
-            binding.tvCategoryName.text = "Drama"
+        fun bind(genre: Genre) {
+            binding.tvCategoryName.text = genre.name
+        }
+    }
 
-            binding.root.setOnClickListener {
-                val intent = Intent(binding.root.context, DetailActivity::class.java)
-                binding.root.context.startActivity(intent)
+    companion object {
+        val COMPARATOR = object : DiffUtil.ItemCallback<Genre>() {
+            override fun areItemsTheSame(oldItem: Genre, newItem: Genre): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Genre, newItem: Genre): Boolean {
+                return oldItem == newItem
             }
         }
     }
